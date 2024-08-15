@@ -19,7 +19,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.hasashi.emmpay"
     },
     "web": {
       "bundler": "metro",
@@ -28,9 +29,18 @@
     },
     "plugins": [
       "expo-router"
+
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "30b65d36-c110-45fe-abbf-9d165fe8466a"
+      }
     }
   }
 }
