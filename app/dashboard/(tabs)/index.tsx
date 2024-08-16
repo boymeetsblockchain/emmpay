@@ -17,7 +17,7 @@ export default function Home() {
         {/* Header Section */}
         <View style={tw`flex-row justify-between items-center mb-5`}>
           <View style={tw`flex-row items-center`}>
-            <Image source={require('../../../assets/home.png')} style={tw`w-12 h-12`} />
+            <Image source={require('../../../assets/head.webp')} style={tw`w-12 h-12 rounded-full`} />
             <Text style={tw`ml-3 text-2xl font-bold`}>Hi Divine 👋</Text>
           </View>
 
@@ -117,7 +117,7 @@ export default function Home() {
           </View>
 
           <View style={tw`flex-row justify-between items-center mb-4`}>
-            <Image source={require('../../../assets/home.png')} style={tw`w-12 h-12`} />
+            <Image source={require('../../../assets/head.webp')} style={tw`w-12 h-12 rounded-full`} />
             <View>
               <Text style={tw`text-2xl font-bold`}>John Fonesca</Text>
               <Text style={tw`text-gray-400 text-xl`}>10:30pm</Text>

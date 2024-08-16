@@ -25,7 +25,7 @@ export default function Send() {
         </View>
         <View style={tw`bg-[#95CFA1CC] w-[30%] items-center h-full flex-row justify-center rounded-lg ml-2`}>
           <Image source={require('../../../assets/us.png')} style={tw`mr-2`} />
-          <Text style={tw`text-xl font-bold`}>USD</Text>
+          <Text style={tw`text-lg font-bold`}>USD</Text>
         </View>
       </View>
 
@@ -76,7 +76,7 @@ export default function Send() {
         </View>
         <View style={tw`bg-[#95CFA1CC] w-[30%] items-center h-full flex-row justify-center rounded-lg ml-2`}>
           <Image source={require('../../../assets/nig.png')} style={tw`mr-2`} />
-          <Text style={tw`text-xl font-bold`}>NGN</Text>
+          <Text style={tw`text-lg font-bold`}>NGN</Text>
         </View>
       </View>
 

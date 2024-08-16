@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, SafeAreaView, Image, TextInput, TouchableOpacity, Pressable, ImageSourcePropType } from 'react-native';
+import { View, Text, SafeAreaView, Image, TextInput, TouchableOpacity, Pressable, ImageSourcePropType, Switch } from 'react-native';
 import BackButton from '@/components/backbutton';
 import tw from 'twrnc';
 import { Entypo } from '@expo/vector-icons';
@@ -15,21 +15,18 @@ interface DataType {
 
 const dataType: DataType = {
   mtn: {
-    title: 'MTN',
-    imgSrc: require('../../../assets/mtn.png'),
+    title: 'Dstv',
+    imgSrc: require('../../../assets/dstv.png'),
   },
   airtel: {
-    title: 'Airtel',
-    imgSrc: require('../../../assets/airtel.png'),
+    title: 'Gotv',
+    imgSrc: require('../../../assets/gotv.png'),
   },
   glo: {
-    title: 'GLO',
-    imgSrc: require('../../../assets/glo.jpeg'),
+    title: 'Startimes',
+    imgSrc: require('../../../assets/startimes.png'),
   },
-  nine_mobile: {
-    title: '9Mobile',
-    imgSrc: require('../../../assets/9.jpeg'),
-  },
+
 };
 
 export default function Airtime() {
@@ -49,7 +46,7 @@ export default function Airtime() {
         {/* Header */}
         <View style={tw`flex-row items-center mb-8`}>
           <BackButton />
-          <Text style={tw`text-2xl font-bold text-center flex-1 mr-20`}>Airtime</Text>
+          <Text style={tw`text-2xl font-bold text-center flex-1 mr-20`}>Tv</Text>
         </View>
 
         {/* Input and Dropdown Section */}
@@ -94,26 +91,26 @@ export default function Airtime() {
           )}
         </View>
 
-        {/* Amount Selection Buttons */}
-        <View style={tw`flex-row flex-wrap items-center gap-4`}>
-          {['₦50', '₦100', '₦200', '₦500', '₦1000', '₦2000', '₦5000', '₦10000', '₦100000'].map((amount) => (
-            <Text
-              key={amount}
-              style={tw`bg-[#D9D9D9] rounded-md text-black w-[20%] text-center py-4 px-2`}
-            >
-              {amount}
-            </Text>
-          ))}
+          <View style={tw `gap-y-3`}>
+          <View style={tw `relative gap-y-1`}>
+          <Text style={tw `text-sm `}>Smartcard Number</Text>
+          <TextInput placeholder='Enter Smartcard Number' style={tw`py-3  border-b`} />
+          <Entypo name='user' size={16} color={"black"} style={tw`absolute top-7 right-3`}/>
+          <View style={tw `items-center flex-row justify-between`}> 
+          <Text style={tw `text-sm `}>Save as Beneficiaries</Text>
+          <Switch/>
+          </View>
         </View>
-
-        {/* Custom Amount Input */}
-        <View>
-          <Text style={tw`text-xl font-bold text-center mt-4 mb-2`}>Amount</Text>
-          <TextInput
-            placeholder='₦'
-            style={tw`py-2 border rounded-md border-[#D9D9D9] px-3`}
-          />
+        <View style={tw `relative gap-y-1`}>
+          <Text style={tw `text-sm `}>Amount</Text>
+          <TextInput placeholder='Amount' style={tw`py-3  border-b`} />
+          <Entypo name='user' size={16} color={"black"} style={tw`absolute top-7 right-3`}/>
+          <View style={tw `items-center flex-row justify-between`}> 
+          <Text style={tw `text-sm `}>Save as Beneficiaries</Text>
+          <Switch/>
+          </View>
         </View>
+          </View>
       </View>
 
       {/* Confirm Button */}

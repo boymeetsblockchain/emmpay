@@ -1,16 +1,54 @@
 import React, { useState } from 'react';
-import { View, Text, SafeAreaView, Image, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, SafeAreaView, Image, TextInput, TouchableOpacity, ImageSourcePropType } from 'react-native';
 import BackButton from '@/components/backbutton';
 import tw from 'twrnc';
 import { Entypo } from '@expo/vector-icons';
 import { Picker } from '@react-native-picker/picker';
 
-export default function Airtime() {
-  const [selectedBundle, setSelectedBundle] = useState('Select Bundles');
-  const [isPickerVisible, setPickerVisible] = useState(false);
+// Interface for the data type (networks)
+interface DataType {
+  [key: string]: {
+    title: string;
+    imgSrc: ImageSourcePropType;
+  };
+}
+
+// Data for the network providers
+const dataType: DataType = {
+  mtn: {
+    title: 'MTN',
+    imgSrc: require('../../../assets/mtn.png'),
+  },
+  airtel: {
+    title: 'Airtel',
+    imgSrc: require('../../../assets/airtel.png'),
+  },
+  glo: {
+    title: 'GLO',
+    imgSrc: require('../../../assets/glo.jpeg'),
+  },
+  nine_mobile: {
+    title: '9Mobile',
+    imgSrc: require('../../../assets/9.jpeg'),
+  },
+};
+
+interface Bundle {
+  label: string;
+  value: string;
+}
+type Provider = 'mtn' | 'airtel' | 'glo' | 'nine_mobile';
+
+export default function Data() {
+  // State to track selected bundle and selected network
+  const [selectedBundle, setSelectedBundle] = useState<string>('Select Bundles');
+  const [selectedNetwork, setSelectedNetwork] = useState<string>('mtn');
+  const [selectedProvider, setSelectedProvider] = useState<Provider>('mtn');
+  const [isPickerVisible, setPickerVisible] = useState<boolean>(false);
+  const [isBundlePickerVisible, setBundlePickerVisible] = useState<boolean>(false);
 
   // List of bundles
-  const bundles = [
+  const bundles: Bundle[] = [
     { label: '100MB for 1 day - ₦100', value: '100MB for 1 day - ₦100' },
     { label: '160MB for 30 days - ₦150', value: '160MB for 30 days - ₦150' },
     { label: '200MB for 3 days - ₦200', value: '200MB for 3 days - ₦200' },
@@ -24,6 +62,11 @@ export default function Airtime() {
     { label: '7GB for 7 days - ₦2000', value: '7GB for 7 days - ₦2000' },
   ];
 
+    // Function to handle provider selection
+    const handleProviderChange = (providerKey: Provider) => {
+      setSelectedProvider(providerKey);
+      setPickerVisible(false);
+    };
   return (
     <SafeAreaView style={tw`flex-1 bg-white relative`}>
       <View style={tw`px-5 pt-10`}>
@@ -33,40 +76,64 @@ export default function Airtime() {
           <Text style={tw`text-2xl font-bold text-center flex-1 mr-20`}>Data</Text>
         </View>
 
-        {/* Input and Dropdown Section */}
+        {/* Network Selection */}
         <View style={tw`my-5`}>
-          <View style={tw`flex-row items-center border-b border-gray-300 bg-white rounded-md`}>
-            <View style={tw`flex-row items-center border-r border-gray-300 pl-2 pr-4`}>
+        <View style={tw`flex-row items-center border-b border-gray-300 bg-white rounded-md`}>
+            {/* Dropdown for selecting provider */}
+            <TouchableOpacity
+              style={tw`flex-row items-center border-r border-gray-300 pl-2 pr-4`}
+              onPress={() => setPickerVisible(!isPickerVisible)}
+            >
               <Image
-                source={require('../../../assets/mtn.png')}
-                style={tw`w-12 h-12`} 
+                source={dataType[selectedProvider].imgSrc}
+                style={tw`w-8 h-8 rounded-full`}
               />
               <Entypo name='chevron-down' color='black' size={16} />
-            </View>
+            </TouchableOpacity>
+
             <TextInput
               style={tw`flex-1 py-3 px-4`}
               placeholder='Enter Your number'
               keyboardType='phone-pad'
             />
           </View>
+
+       {/* Dropdown List */}
+       {isPickerVisible && (
+            <View style={tw`border border-gray-300 mt-2 rounded-md`}>
+              {Object.keys(dataType).map((providerKey) => (
+                <TouchableOpacity
+                  key={providerKey}
+                  style={tw`flex-row items-center py-2 px-4`}
+                  onPress={() => handleProviderChange(providerKey as Provider)}
+                >
+                  <Image
+                    source={dataType[providerKey].imgSrc}
+                    style={tw`w-8 h-8 mr-4 rounded-full`}
+                  />
+                  <Text style={tw`text-lg`}>{dataType[providerKey].title}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+          )}
         </View>
 
-        {/* Amount Selection */}
+        {/* Bundle Selection */}
         <View>
           <TouchableOpacity
             style={tw`py-2 border rounded-md border-[#D9D9D9] px-3`}
-            onPress={() => setPickerVisible(!isPickerVisible)}
+            onPress={() => setBundlePickerVisible(!isBundlePickerVisible)}
           >
             <Text style={tw`text-center`}>{selectedBundle}</Text>
           </TouchableOpacity>
 
-          {/* Inline Picker */}
-          {isPickerVisible && (
+          {/* Inline Picker for Bundle Selection */}
+          {isBundlePickerVisible && (
             <Picker
               selectedValue={selectedBundle}
-              onValueChange={(itemValue) => {
+              onValueChange={(itemValue: string) => {
                 setSelectedBundle(itemValue);
-                setPickerVisible(false); // Hide picker after selection
+                setBundlePickerVisible(false); // Hide picker after selection
               }}
               style={tw`bg-white mt-2`}
             >

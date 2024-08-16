@@ -13,7 +13,7 @@ export default function Cards() {
               style={tw`w-full rounded-md`} 
             />
        </View>
-       <Text style={tw `text-5xl font-bold  my-10 `}>
+       <Text style={tw `text-4xl font-bold  my-10 `}>
        Emmpay card Built for Your Digital Life
        </Text>
        <View style={tw `flex-col gap-y-4 pr-10`}>

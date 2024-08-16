@@ -29,13 +29,13 @@ export default function Bills() {
         </Pressable >
         <Pressable onPress={()=>router.push("/payment/data/")} style={styles.iconBox}>
           <Ionicons name="wifi" size={32} color="#3E9850" />
-          <Text style={styles.iconLabel}>Wi-Fi</Text>
+          <Text style={styles.iconLabel}>Internet</Text>
         </Pressable >
-        <Pressable onPress={()=>router.push("/payments/")} style={styles.iconBox}>
+        <Pressable onPress={()=>router.push("/payment/tv/")} style={styles.iconBox}>
           <Ionicons name="tv" size={32} color="#5E60CE" />
           <Text style={styles.iconLabel}>TV</Text>
         </Pressable >
-        <Pressable onPress={()=>router.push("/payments/")} style={styles.iconBox}>
+        <Pressable onPress={()=>router.push("/payment/electricity/")} style={styles.iconBox}>
           <Ionicons name="bulb" size={32} color="#F4A261" />
           <Text style={styles.iconLabel}>Electricity</Text>
         </Pressable >

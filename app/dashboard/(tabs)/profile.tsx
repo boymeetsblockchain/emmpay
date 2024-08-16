@@ -1,9 +1,22 @@
-import { View, Text, Image, Pressable, ScrollView, SafeAreaView } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TextInput, Image, Pressable, ScrollView, SafeAreaView } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import tw from 'twrnc';
 import { router } from 'expo-router';
 
 export default function Profile() {
+  // States for editing fields
+  const [isEditingName, setIsEditingName] = useState(false);
+  const [isEditingPhone, setIsEditingPhone] = useState(false);
+  const [isEditingEmail, setIsEditingEmail] = useState(false);
+  const [isEditingGender, setIsEditingGender] = useState(false);
+
+  // States to store field values
+  const [name, setName] = useState('Divine Ikemma');
+  const [phone, setPhone] = useState('08737373729');
+  const [email, setEmail] = useState('divineikemma@gmail.com');
+  const [gender, setGender] = useState('Female');
+
   return (
     <SafeAreaView style={tw`flex-1 bg-white`}>
       <ScrollView contentContainerStyle={tw`px-5 pt-10`}>
@@ -19,47 +32,97 @@ export default function Profile() {
         {/* Profile Picture and Info */}
         <View style={tw`flex-col items-center gap-y-2 mb-8`}>
           <Image
-            source={require('../../../assets/home.png')}
+            source={require('../../../assets/head.webp')}
             style={tw`w-24 h-24 rounded-full`}
           />
-          <Text style={tw`text-2xl font-semibold`}>Divine Ikemma</Text>
+          <Text style={tw`text-2xl font-semibold`}>{name}</Text>
           <Text style={tw`text-lg text-gray-500`}>@Divkemma</Text>
         </View>
 
         {/* Profile Details */}
         <View style={tw`flex-col gap-y-5 mb-10`}>
           {/* Full Name */}
-          <Pressable style={tw`flex-row justify-between items-center p-4 bg-gray-100 rounded-lg`}>
+          <Pressable
+            style={tw`flex-row justify-between items-center p-4 bg-gray-100 rounded-lg`}
+            onPress={() => setIsEditingName(!isEditingName)}
+          >
             <View>
               <Text style={tw`text-xl font-bold`}>Full Name</Text>
-              <Text style={tw`text-sm text-gray-600`}>Divine Ikemma</Text>
+              {isEditingName ? (
+                <TextInput
+                  style={tw`text-sm text-gray-600 border-b border-gray-400`}
+                  value={name}
+                  onChangeText={setName}
+                  autoFocus
+                />
+              ) : (
+                <Text style={tw`text-sm text-gray-600`}>{name}</Text>
+              )}
             </View>
             <Ionicons name="pencil" size={24} color="black" />
           </Pressable>
 
           {/* Phone Number */}
-          <Pressable style={tw`flex-row justify-between items-center p-4 bg-gray-100 rounded-lg`}>
+          <Pressable
+            style={tw`flex-row justify-between items-center p-4 bg-gray-100 rounded-lg`}
+            onPress={() => setIsEditingPhone(!isEditingPhone)}
+          >
             <View>
               <Text style={tw`text-xl font-bold`}>Phone Number</Text>
-              <Text style={tw`text-sm text-gray-600`}>08737373729</Text>
+              {isEditingPhone ? (
+                <TextInput
+                  style={tw`text-sm text-gray-600 border-b border-gray-400`}
+                  value={phone}
+                  onChangeText={setPhone}
+                  keyboardType="phone-pad"
+                  autoFocus
+                />
+              ) : (
+                <Text style={tw`text-sm text-gray-600`}>{phone}</Text>
+              )}
             </View>
             <Ionicons name="pencil" size={24} color="black" />
           </Pressable>
 
           {/* Email */}
-          <Pressable style={tw`flex-row justify-between items-center p-4 bg-gray-100 rounded-lg`}>
+          <Pressable
+            style={tw`flex-row justify-between items-center p-4 bg-gray-100 rounded-lg`}
+            onPress={() => setIsEditingEmail(!isEditingEmail)}
+          >
             <View>
               <Text style={tw`text-xl font-bold`}>Email</Text>
-              <Text style={tw`text-sm text-gray-600`}>divineikemma@gmail.com</Text>
+              {isEditingEmail ? (
+                <TextInput
+                  style={tw`text-sm text-gray-600 border-b border-gray-400`}
+                  value={email}
+                  onChangeText={setEmail}
+                  keyboardType="email-address"
+                  autoFocus
+                />
+              ) : (
+                <Text style={tw`text-sm text-gray-600`}>{email}</Text>
+              )}
             </View>
             <Ionicons name="pencil" size={24} color="black" />
           </Pressable>
 
           {/* Gender */}
-          <Pressable style={tw`flex-row justify-between items-center p-4 bg-gray-100 rounded-lg`}>
+          <Pressable
+            style={tw`flex-row justify-between items-center p-4 bg-gray-100 rounded-lg`}
+            onPress={() => setIsEditingGender(!isEditingGender)}
+          >
             <View>
               <Text style={tw`text-xl font-bold`}>Gender</Text>
-              <Text style={tw`text-sm text-gray-600`}>Female</Text>
+              {isEditingGender ? (
+                <TextInput
+                  style={tw`text-sm text-gray-600 border-b border-gray-400`}
+                  value={gender}
+                  onChangeText={setGender}
+                  autoFocus
+                />
+              ) : (
+                <Text style={tw`text-sm text-gray-600`}>{gender}</Text>
+              )}
             </View>
             <Ionicons name="pencil" size={24} color="black" />
           </Pressable>
@@ -72,21 +135,23 @@ export default function Profile() {
             onPress={() => router.push('/settings')}
             style={({ pressed }) => [
               tw`p-4 bg-gray-100 rounded-lg`,
-              pressed && tw`bg-gray-200`
+              pressed && tw`bg-gray-200`,
             ]}
           >
             <View>
               <Text style={tw`text-xl font-bold`}>Settings</Text>
-              <Text style={tw`text-sm text-gray-600`}>Control your notification and security settings</Text>
+              <Text style={tw`text-sm text-gray-600`}>
+                Control your notification and security settings
+              </Text>
             </View>
           </Pressable>
 
           {/* Get Help */}
           <Pressable
-            onPress={() => console.log('Get Help Pressed')}
+            onPress={() => router.push('/contact/')}
             style={({ pressed }) => [
               tw`p-4 bg-gray-100 rounded-lg`,
-              pressed && tw`bg-gray-200`
+              pressed && tw`bg-gray-200`,
             ]}
           >
             <View>
