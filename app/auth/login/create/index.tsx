@@ -1,8 +1,7 @@
 import { OTPInputComp } from '@/components/Otp';
 import { router } from 'expo-router';
 import { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { View, Text, TouchableOpacity, SafeAreaView } from 'react-native';
 import tw from 'twrnc';
 
 export default function CreatePin() {
@@ -13,17 +12,21 @@ export default function CreatePin() {
   };
 
   return (
-    <SafeAreaView style={tw`flex-1  relative  `}>
-      <Text style={tw`text-3xl font-bold text-center mb-6`}>Create Pin</Text>
-      <View style={tw`mb-6`}>
-        <OTPInputComp digits={4} onChangeText={setPin} />
+    <SafeAreaView style={tw`flex-1 bg-white p-4`}>
+      <View style={tw`flex-1 justify-center`}>
+        <Text style={tw`text-3xl font-bold text-center text-gray-800 mb-6`}>Create Pin</Text>
+        
+        <View style={tw`mb-6`}>
+          <OTPInputComp digits={4} onChangeText={setPin} />
+        </View>
+
+        <TouchableOpacity
+          onPress={handleNext}
+          style={tw`bg-[#3E9850] py-4 rounded-lg shadow-lg`}
+        >
+          <Text style={tw`text-white text-center text-lg font-bold`}>Next</Text>
+        </TouchableOpacity>
       </View>
-      <TouchableOpacity
-        onPress={handleNext}
-        style={tw`bg-[#3E9850] py-4 px-2 absolute bottom-0  w-full  flex items-center`}
-      >
-        <Text style={tw`text-white text-center text-lg font-bold`}>Next</Text>
-      </TouchableOpacity>
     </SafeAreaView>
   );
 }
